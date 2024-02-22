@@ -23,8 +23,7 @@ def GetSingleProducts(id):
     
     return json.loads(request.text)
  
-def SuggestProducts(category):
-    
-    requests = requests.get(f"{URL_API}/products/" + str(category))
+def SuggestProducts():
+    requests = requests.get(f"{URL_API}/products/categories")
     return json.loads(requests.text)
 

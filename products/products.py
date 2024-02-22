@@ -12,10 +12,14 @@ def index():
     return render_template('products/products.html', length = l, products = data)
 
 @products_bp.route('/products/<int:id>')
+
 def detailOfProduct(id):
     data = GetSingleProducts(id)
-
     return render_template('products/detail.html', detailOfPorduct = data)
-def suggestedProduct(category):
-    Category = SuggestProducts(category)
-    
+
+def getSuggestedProducts(id):
+    allproducts = GetAllProducts
+    produkty=[];
+    limit = 4
+    for produkt in allproducts:
+        produkt["category"] != allproducts["category"] & 
