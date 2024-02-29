@@ -28,8 +28,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                {% for cate in kategorie_produkty %}
-                                <li><a class="dropdown-item" href="#!">{{kategorie_produkty[cate]}}</a></li>
+                                {% for c in kategorie %}
+                                <li><a class="dropdown-item" href="#!">{{c}}</a></li>
                                 {%endfor%}
                             </ul>
                         </li>

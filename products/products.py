@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from collections import defaultdict
+
 from API.api import GetAllProducts, GetSingleProducts, SuggestProducts
 products_bp = Blueprint('products_bp', __name__,
     template_folder='templates',
@@ -8,13 +9,10 @@ products_bp = Blueprint('products_bp', __name__,
 @products_bp.route('/products')
 def index():
     data = GetAllProducts()
+    all_categories = SuggestProducts()
+
     l = len(data)
-    kategorie = data["category"]
-    distinct_category = []
-    for category in data:
-        distinct_category[category["category"].append(category)]
-    
-    return render_template('products/products.html', length = l, products = data, kategorie = distinct_category)
+    return render_template('products/products.html', length = l, products = data, kategorie = all_categories)
 
 @products_bp.route('/products/<int:id>')
 
