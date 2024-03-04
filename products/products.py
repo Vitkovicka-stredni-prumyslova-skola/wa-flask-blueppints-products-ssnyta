@@ -35,6 +35,18 @@ def getSuggestedProducts(id):
                 break
     
     return render_template("products/detail.html" ,DetailOfOneProduct = data, Suggested_Products = suggested_products, kategorie_produkty = category_products )
+#potřebuji dodělat 
+@products_bp.route("/products-category")
+def ShowProductsByCategory():
+    data = GetAllProducts()
+    category = SuggestProducts()
+    products_by_cate = []
+    
+    for p in data:
+        if p["category"] == category:
+            products_by_cate.append(p)
+    return render_template("products/products_cat.html", products = products_by_cate, category = category)
 
-
-      
+@products_bp.route("/products/add")
+def AddProduct():
+    return render_template ("products/new_product.html")
