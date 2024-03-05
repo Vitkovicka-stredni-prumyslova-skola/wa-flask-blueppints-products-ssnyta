@@ -4,9 +4,7 @@ import requests
 import json
 
 
-api_bp = Blueprint('api_bp', __name__,
-    template_folder='templates',
-    static_folder='static')
+api_bp = Blueprint('api_bp', __name__)
 URL_API = "https://fakestoreapi.com"
 
 #Načte  seznam produktů z API v JSON formátu a vrátí jej jako pole.

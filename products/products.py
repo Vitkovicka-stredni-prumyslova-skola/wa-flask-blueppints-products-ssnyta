@@ -2,9 +2,7 @@ from flask import Blueprint, render_template
 from collections import defaultdict
 
 from API.api import GetAllProducts, GetSingleProducts, SuggestProducts
-products_bp = Blueprint('products_bp', __name__,
-    template_folder='templates',
-    static_folder='static')
+products_bp = Blueprint('products_bp', __name__)
 
 @products_bp.route('/products')
 def index():
@@ -49,4 +47,5 @@ def ShowProductsByCategory():
 
 @products_bp.route("/products/add")
 def AddProduct():
-    return render_template ("products/new_product.html")
+    all_categories = SuggestProducts()
+    return render_template ("products/new_product.html", categories = all_categories)
