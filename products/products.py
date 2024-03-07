@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from collections import defaultdict
 
-from API.api import GetAllProducts, GetSingleProducts, SuggestProducts
+from API.api import GetAllProducts, GetSingleProducts, SuggestProducts, GetMaxID
 products_bp = Blueprint('products_bp', __name__)
 
 @products_bp.route('/products')
@@ -45,7 +45,23 @@ def ShowProductsByCategory():
             products_by_cate.append(p)
     return render_template("products/products_cat.html", products = products_by_cate, category = category)
 
-@products_bp.route("/products/add")
+@products_bp.route("/products/add", methods = ['GET', 'POST'])
 def AddProduct():
     all_categories = SuggestProducts()
+    
+    nazev = request.form.get('Nazev')
+    popis = request.form.get('popis')
+    cena =  request.form.get('cena')
+    kategorie = request.form.get('kategorie')
+    maxid = GetMaxID()
+    produkt = {
+        "id": maxid + 1,
+        "title": nazev,
+        "price" : cena,
+        "description": popis,
+        "category": kategorie
+    }
     return render_template ("products/new_product.html", categories = all_categories)
+
+#Linux
+#

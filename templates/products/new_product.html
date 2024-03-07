@@ -83,27 +83,27 @@
     <div class="row g-5">
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Vyplňte info</h4>
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" action="" method="post">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Název</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <input type="text" class="form-control" id="Nazev" placeholder="" value="" required name="Nazev">
             </div>
 
 
             <div class="col-12">
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                <label for="floatingTextarea2">Popis</label>
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Popis</label>
+                <input type="text" class="form-control" id="popis" placeholder="" value="" name="popis" required>
               </div>
             </div>
 
 
             <div class="col-md-5">
               <label for="country" class="form-label">Kategorie</label>
-              <select class="form-select" id="kategorie" required>
-                <option value="">-</option>
+              <select class="form-select" id="kategorie" required name="kategorie">
                 {% for c in categories %}
+                <option value="{{c}}">-</option>
                 <option>{{c}}</option>
                 {% endfor %}
               </select>
@@ -112,12 +112,12 @@
 
             <div class="col-md-3">
               <label for="zip" class="form-label">Cena</label>
-              <input type="text" class="form-control" id="zip" placeholder="Základní cena produktu" required>
+              <input type="text" class="form-control" id="cena" placeholder="Základní cena produktu" required name="cena">
             </div>
           </div>
 
           
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Uložit</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Přidat</button>
         </form>
       </div>
     </div>

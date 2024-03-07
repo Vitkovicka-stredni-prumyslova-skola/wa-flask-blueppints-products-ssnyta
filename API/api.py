@@ -25,3 +25,8 @@ def SuggestProducts():
     request = requests.get(f"{URL_API}/products/categories")
     return json.loads(request.text)
 
+def GetMaxID():
+    request = requests.get(f"{URL_API}/products")
+    id_produktu = request["id"]
+    delka_pole = id_produktu.len() + 1
+    return delka_pole
