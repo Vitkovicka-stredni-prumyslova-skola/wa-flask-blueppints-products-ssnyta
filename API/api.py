@@ -18,7 +18,6 @@ def GetAllProducts():
 def GetSingleProducts(id):   
     
     request = requests.get(f"{URL_API}/products/" + str(id))
-    
     return json.loads(request.text)
  
 def SuggestProducts():
@@ -27,6 +26,7 @@ def SuggestProducts():
 
 def GetMaxID():
     request = requests.get(f"{URL_API}/products")
-    id_produktu = request["id"]
-    delka_pole = id_produktu.len() + 1
+    data = json.loads(request.text)
+    id_produktu = [item["id"] for item in data]
+    delka_pole = max(id_produktu) + 1 if id_produktu else 1
     return delka_pole

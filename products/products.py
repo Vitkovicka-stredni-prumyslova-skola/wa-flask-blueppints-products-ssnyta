@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request
 from collections import defaultdict
-
+import requests
 from API.api import GetAllProducts, GetSingleProducts, SuggestProducts, GetMaxID
 products_bp = Blueprint('products_bp', __name__)
+URL_API = "https://fakestoreapi.com"
 
 @products_bp.route('/products')
 def index():
@@ -47,21 +48,20 @@ def ShowProductsByCategory():
 
 @products_bp.route("/products/add", methods = ['GET', 'POST'])
 def AddProduct():
-    all_categories = SuggestProducts()
-    
-    nazev = request.form.get('Nazev')
-    popis = request.form.get('popis')
-    cena =  request.form.get('cena')
-    kategorie = request.form.get('kategorie')
-    maxid = GetMaxID()
-    produkt = {
+    if request.method == 'POST':
+        all_categories = SuggestProducts()
+        nazev = request.form.get('Nazev')
+        popis = request.form.get('popis')
+        cena =  request.form.get('cena')
+        kategorie = request.form.get('kategorie')
+        maxid = GetMaxID()
+        produkt = {
         "id": maxid + 1,
         "title": nazev,
         "price" : cena,
         "description": popis,
         "category": kategorie
-    }
-    return render_template ("products/new_product.html", categories = all_categories)
-
-#Linux
-#
+        }
+        
+        response = requests.post(f"{URL_API}/products", json=produkt)
+        return render_template ("products/new_product.html", categories = all_categories)
