@@ -4,14 +4,17 @@ import requests
 from API.api import GetAllProducts, GetSingleProducts, SuggestProducts, GetMaxID
 products_bp = Blueprint('products_bp', __name__)
 URL_API = "https://fakestoreapi.com"
+ 
+all_categories = SuggestProducts()
+all_products = GetAllProducts()
+produkty = [all_products]
 
 @products_bp.route('/products')
 def index():
     data = GetAllProducts()
     all_categories = SuggestProducts()
-
     l = len(data)
-    return render_template('products/products.html', length = l, products = data, kategorie = all_categories)
+    return render_template('products/products.html', length = l, products = data, kategorie = all_categories, Produkty = produkty)
 
 @products_bp.route('/products/<int:id>')
 
@@ -49,19 +52,19 @@ def ShowProductsByCategory():
 @products_bp.route("/products/add", methods = ['GET', 'POST'])
 def AddProduct():
     if request.method == 'POST':
-        all_categories = SuggestProducts()
         nazev = request.form.get('Nazev')
         popis = request.form.get('popis')
         cena =  request.form.get('cena')
         kategorie = request.form.get('kategorie')
         maxid = GetMaxID()
-        produkt = {
-        "id": maxid + 1,
-        "title": nazev,
-        "price" : cena,
-        "description": popis,
-        "category": kategorie
-        }
-        
-        response = requests.post(f"{URL_API}/products", json=produkt)
-        return render_template ("products/new_product.html", categories = all_categories)
+        produkt = [{
+            "id": maxid + 1,
+            "title": nazev,
+            "price" : cena,
+            "description": popis,
+            "category": kategorie
+            }]
+    
+    produkty.append(produkt)
+    print(produkty)
+    return render_template("products/new_product.html", categories = all_categories)

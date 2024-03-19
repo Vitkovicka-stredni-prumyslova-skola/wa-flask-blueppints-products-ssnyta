@@ -28,5 +28,5 @@ def GetMaxID():
     request = requests.get(f"{URL_API}/products")
     data = json.loads(request.text)
     id_produktu = [item["id"] for item in data]
-    delka_pole = max(id_produktu) + 1 if id_produktu else 1
+    delka_pole = max(id_produktu)
     return delka_pole
