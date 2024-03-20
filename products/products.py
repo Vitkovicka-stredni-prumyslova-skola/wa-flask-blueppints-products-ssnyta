@@ -9,6 +9,26 @@ all_categories = SuggestProducts()
 all_products = GetAllProducts()
 produkty = [all_products]
 
+@products_bp.route("/products/add", methods = ['GET', 'POST'])
+def AddProduct():
+    if request.method == 'POST':
+        nazev = request.form.get('Nazev')
+        popis = request.form.get('popis')
+        cena =  request.form.get('cena')
+        kategorie = request.form.get('kategorie')
+        maxid = GetMaxID()
+        produkt =[{
+            "id": maxid + 1,
+            "title": nazev,
+            "price" : cena,
+            "description": popis,
+            "category": kategorie
+            },]
+    
+        produkty.extend(produkt)
+    print(produkty)
+    return render_template("products/new_product.html", categories = all_categories)
+
 @products_bp.route('/products')
 def index():
     data = GetAllProducts()
@@ -49,22 +69,3 @@ def ShowProductsByCategory():
             products_by_cate.append(p)
     return render_template("products/products_cat.html", products = products_by_cate, category = category)
 
-@products_bp.route("/products/add", methods = ['GET', 'POST'])
-def AddProduct():
-    if request.method == 'POST':
-        nazev = request.form.get('Nazev')
-        popis = request.form.get('popis')
-        cena =  request.form.get('cena')
-        kategorie = request.form.get('kategorie')
-        maxid = GetMaxID()
-        produkt = [{
-            "id": maxid + 1,
-            "title": nazev,
-            "price" : cena,
-            "description": popis,
-            "category": kategorie
-            }]
-    
-    produkty.append(produkt)
-    print(produkty)
-    return render_template("products/new_product.html", categories = all_categories)
